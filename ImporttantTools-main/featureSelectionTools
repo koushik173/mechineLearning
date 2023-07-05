@@ -1,0 +1,62 @@
+some of important tools:
+
+1)###############--> VarianceThreshold <--###############
+##Variance Threshold Feature selector that removes all low-variance features.
+
+### It will zero variance features
+from sklearn.feature_selection import VarianceThreshold
+var_thres=VarianceThreshold(threshold=0)
+var_thres.fit(data)
+
+
+
+2)###############--> corr_relation <--###############
+
+#Using Pearson Correlation
+#we can find out the highly correlation feature
+#it will be remove the first feature that is correlated with anything other feature
+
+def corr_relation(data, threshold):
+    corr_feature = set()
+    corr_matrix = data.corr()
+    for i in range(len(corr_matrix.columns)):
+        for j in range(i):
+            if abs(corr_matrix.iloc[i,j]) > threshold:
+                corr_feature.add(corr_matrix.columns[i])
+    return corr_feature
+
+corr_features = corr_relation(X_train,0.7)    
+
+
+
+3) ###############--> mutual_info_(classif/regression) <--###############
+
+from sklearn.feature_selection import mutual_info_classif
+# determine the mutual information
+mutual_info = mutual_info_(classif/regression)(X_train, y_train)
+
+mutual_info = pd.Series(mutual_info)
+mutual_info.index = X_train.columns
+mutual_info.sort_values(ascending=False)
+
+         ####--> SelectKBest <--
+ 
+from sklearn.feature_selection import SelectKBest
+
+#No we Will select the  top 5 important features
+sel_five_cols = SelectKBest(mutual_info_(classif/regression), k=5)
+sel_five_cols.fit(X_train, y_train)
+X_train.columns[sel_five_cols.get_support()]
+
+
+         ####--> SelectPercentile <--
+         
+from sklearn.feature_selection import SelectPercentile
+## Selecting the top 20 percentile
+selected_top_columns = SelectPercentile(mutual_info_(classif/regression), percentile=20)
+selected_top_columns.fit(X_train.fillna(0), y_train)
+X_train.columns[selected_top_columns.get_support()]
+
+
+
+

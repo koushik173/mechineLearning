@@ -1,0 +1,11 @@
+hyperPerameter Tuning
+1)https://www.projectpro.io/recipes/tagged/hyperparameter-tuning
+
+
+logisticReg
+==> 1) https://www.projectpro.io/recipes/optimize-hyper-parameters-of-logistic-regression-model-using-grid-search-in-python
+
+
+
+
+

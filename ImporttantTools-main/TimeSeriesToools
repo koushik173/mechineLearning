@@ -1,0 +1,19 @@
+#######################  date time handle ################
+
+1) ------------> to_datetime <---------
+##**.dt.day method will extract only day of that date**\ **.dt.month method will extract only month of that date**
+
+
+train_data["day"] = pd.to_datetime(train_data.Date, format="%d/%m/%Y").dt.day
+train_data["month"] = pd.to_datetime(train_data.Date, format="%d/%m/%Y").dt.month
+train_data["year"] = pd.to_datetime(train_data.Date, format="%d/%m/%Y").dt.year
+
+
+2) ______________> .str.split <------------
+
+df['Date']=df['Date'].str.split('/').str[0]
+df['Month']=df['Date'].str.split('/').str[1]
+df['Year']=df['Date'].str.split('/').str[2]
+df.drop(['Date'],axis = 1, inplace=True)
+df[['Date','Month','Year']] = df[['Date','Month','Year']].apply(lambda x: x.astype(int))
+
